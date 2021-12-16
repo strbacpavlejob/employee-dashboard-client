@@ -35,10 +35,10 @@ function App() {
     setOpenModal(true);
   };
   const handleEmployeeEdit = async (employeeId) => {
-    setEditMode(true);
     await getEmployee(employeeId).then((data) => {
       setSelectedEmployee(data);
     });
+    setEditMode(true);
     setOpenModal(true);
   };
 

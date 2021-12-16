@@ -28,7 +28,7 @@ function EmployeeModal(props) {
     setHomeAddress(props.selectedEmployee.homeAddress);
     setDateOfEmployment(props.selectedEmployee.dateOfEmployment);
     setDateOfBirth(props.selectedEmployee.dateOfBirth);
-  }, [props.editMode]);
+  }, [props.selectedEmployee]);
 
   const resetForm = () => {
     setEmployeeId("");
@@ -47,7 +47,7 @@ function EmployeeModal(props) {
       phoneNumber: phoneNumber,
       homeAddress: homeAddress,
       dateOfEmployment: dateOfEmployment,
-      dateOfBirth: dateOfEmployment,
+      dateOfBirth: dateOfBirth,
     };
     props.save(newEmployee);
     resetForm();
@@ -60,7 +60,7 @@ function EmployeeModal(props) {
       phoneNumber: phoneNumber,
       homeAddress: homeAddress,
       dateOfEmployment: dateOfEmployment,
-      dateOfBirth: dateOfEmployment,
+      dateOfBirth: dateOfBirth,
     };
     props.edit(employeeId, editedEmployee);
     resetForm();
@@ -80,49 +80,61 @@ function EmployeeModal(props) {
                 id="name"
                 label="Name"
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => {
+                  setName(event.target.value);
+                }}
                 fullWidth
                 variant="standard"
                 inputProps={{ maxLength: 100 }}
+                error={name === ""}
+                helperText={name === "" ? "Empty!" : " "}
               />
               <TextField
-                autoFocus
                 id="emailAddress"
                 label="Email address"
                 value={emailAddress}
-                onChange={(event) => setEmailAddress(event.target.value)}
+                onChange={(event) => {
+                  setEmailAddress(event.target.value);
+                }}
                 fullWidth
                 variant="standard"
                 type="email"
                 inputProps={{ maxLength: 100 }}
+                error={emailAddress === ""}
+                helperText={emailAddress === "" ? "Empty!" : " "}
               />
               <TextField
                 id="phoneNumber"
                 label="Phone number"
                 value={phoneNumber}
-                onChange={(event) => setPhoneNumber(event.target.value)}
+                onChange={(event) => {
+                  setPhoneNumber(event.target.value);
+                }}
                 fullWidth
                 variant="standard"
                 inputProps={{ maxLength: 100 }}
+                error={phoneNumber === ""}
+                helperText={phoneNumber === "" ? "Empty!" : " "}
               />
 
               <TextField
-                autoFocus
                 id="homeAddress"
                 label="Home address"
                 value={homeAddress}
-                onChange={(event) => setHomeAddress(event.target.value)}
+                onChange={(event) => {
+                  setHomeAddress(event.target.value);
+                }}
                 fullWidth
                 variant="standard"
                 inputProps={{ maxLength: 100 }}
+                error={homeAddress === ""}
+                helperText={homeAddress === "" ? "Empty!" : " "}
               />
               <MobileDatePicker
                 label="Date of employment"
                 value={dateOfEmployment}
                 onChange={(newValue) => {
-                  if (newValue <= new Date()) {
-                    setDateOfEmployment(newValue);
-                  }
+                  setDateOfEmployment(newValue);
                 }}
                 maxDate={new Date()}
                 renderInput={(params) => <TextField {...params} />}
@@ -131,9 +143,7 @@ function EmployeeModal(props) {
                 label="Date of birth"
                 value={dateOfBirth}
                 onChange={(newValue) => {
-                  if (newValue <= new Date()) {
-                    setDateOfBirth(newValue);
-                  }
+                  setDateOfBirth(newValue);
                 }}
                 maxDate={new Date()}
                 renderInput={(params) => <TextField {...params} />}

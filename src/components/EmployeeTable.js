@@ -75,8 +75,14 @@ export default function EmployeeTable(props) {
                     <TableCell>{row.emailAddress}</TableCell>
                     <TableCell>{row.phoneNumber}</TableCell>
                     <TableCell>{row.homeAddress}</TableCell>
-                    <TableCell>{row.dateOfEmployment}</TableCell>
-                    <TableCell>{row.dateOfBirth}</TableCell>
+                    <TableCell>
+                      {new Date(row.dateOfEmployment)
+                        .toISOString()
+                        .slice(0, 10)}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(row.dateOfBirth).toISOString().slice(0, 10)}
+                    </TableCell>
 
                     <TableCell>
                       <IconButton
