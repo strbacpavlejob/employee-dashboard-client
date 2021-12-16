@@ -11,7 +11,7 @@ import { IconButton } from "@mui/material";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
 
-const columns = [
+let columns = [
   { id: "employeeId", label: "ID" },
   { id: "name", label: "Name" },
   { id: "emailAddress", label: "Email address" },
@@ -22,11 +22,6 @@ const columns = [
   { id: "edit", label: "Edit" },
   { id: "delete", label: "Delete" },
 ];
-
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
 
 export default function EmployeeTable(props) {
   const [page, setPage] = React.useState(0);
@@ -53,15 +48,23 @@ export default function EmployeeTable(props) {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
+              {columns.map((column) => {
+                if (
+                  props.isDeleted &&
+                  (column.id == "edit" || column.id == "delete")
+                ) {
+                  return null;
+                }
+                return (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                );
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -83,35 +86,38 @@ export default function EmployeeTable(props) {
                     <TableCell>
                       {new Date(row.dateOfBirth).toISOString().slice(0, 10)}
                     </TableCell>
-
-                    <TableCell>
-                      <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={() => {
-                          handleEmployeeEdit(row.employeeId);
-                        }}
-                      >
-                        <Edit />
-                      </IconButton>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={() => {
-                          handleEmployeeDelete(row.employeeId);
-                        }}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </TableCell>
+                    {!props.isDeleted && (
+                      <>
+                        <TableCell>
+                          <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                            onClick={() => {
+                              handleEmployeeEdit(row.employeeId);
+                            }}
+                          >
+                            <Edit />
+                          </IconButton>
+                        </TableCell>
+                        <TableCell>
+                          <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                            onClick={() => {
+                              handleEmployeeDelete(row.employeeId);
+                            }}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </>
+                    )}
                   </TableRow>
                 );
               })}
