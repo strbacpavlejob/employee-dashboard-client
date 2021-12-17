@@ -17,8 +17,8 @@ let columns = [
   { id: "emailAddress", label: "Email address" },
   { id: "phoneNumber", label: "Phone number" },
   { id: "homeAddress", label: "Home address" },
-  { id: "dateOfEmployment", label: "Date of employment" },
   { id: "dateOfBirth", label: "Date of birth" },
+  { id: "dateOfEmployment", label: "Date of employment" },
   { id: "edit", label: "Edit" },
   { id: "delete", label: "Delete" },
 ];
@@ -51,7 +51,7 @@ export default function EmployeeTable(props) {
               {columns.map((column) => {
                 if (
                   props.isDeleted &&
-                  (column.id == "edit" || column.id == "delete")
+                  (column.id === "edit" || column.id === "delete")
                 ) {
                   return null;
                 }
@@ -79,12 +79,12 @@ export default function EmployeeTable(props) {
                     <TableCell>{row.phoneNumber}</TableCell>
                     <TableCell>{row.homeAddress}</TableCell>
                     <TableCell>
+                      {new Date(row.dateOfBirth).toISOString().slice(0, 10)}
+                    </TableCell>
+                    <TableCell>
                       {new Date(row.dateOfEmployment)
                         .toISOString()
                         .slice(0, 10)}
-                    </TableCell>
-                    <TableCell>
-                      {new Date(row.dateOfBirth).toISOString().slice(0, 10)}
                     </TableCell>
                     {!props.isDeleted && (
                       <>
