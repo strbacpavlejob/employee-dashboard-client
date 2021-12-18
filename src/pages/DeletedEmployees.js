@@ -24,16 +24,18 @@ function DeletedEmployees() {
   return (
     <div className="App">
       <Header employeeAdd={() => {}} title={"Deleted Employees"} isDeleted />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <EmployeeTable
-          rows={employeeList}
-          employeeEdit={() => {}}
-          employeeDelete={() => {}}
-          isDeleted={true}
-        />
-      )}
+      <div className="Table">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <EmployeeTable
+            rows={employeeList}
+            employeeEdit={() => {}}
+            employeeDelete={() => {}}
+            isDeleted={true}
+          />
+        )}
+      </div>
     </div>
   );
 }

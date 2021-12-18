@@ -66,15 +66,17 @@ function CurrentEmployee() {
   return (
     <div className="App">
       <Header employeeAdd={handleEmployeeAdd} title={"Current Employees"} />
-      {loading ? (
-        <Spinner />
-      ) : (
-        <EmployeeTable
-          rows={employeeList}
-          employeeEdit={handleEmployeeEdit}
-          employeeDelete={handleEmployeeDelete}
-        />
-      )}
+      <div className="Table">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <EmployeeTable
+            rows={employeeList}
+            employeeEdit={handleEmployeeEdit}
+            employeeDelete={handleEmployeeDelete}
+          />
+        )}
+      </div>
       <EmployeeModal
         open={openModal}
         close={handleModalClose}

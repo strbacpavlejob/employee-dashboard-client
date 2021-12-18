@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
 
@@ -42,7 +42,15 @@ export default function EmployeeTable(props) {
     props.employeeDelete(employeeId);
   };
 
-  return (
+  return props.rows.length === 0 ? (
+    <Typography
+      variant="h6"
+      component="div"
+      sx={{ flexGrow: 1, paddingTop: 10 }}
+    >
+      No data found
+    </Typography>
+  ) : (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">

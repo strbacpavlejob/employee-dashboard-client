@@ -5,6 +5,10 @@ a {
   text-decoration: none;
   color: black;
 }
+.Table {
+  text-align: center;
+  justify-content: center;
+}
 
 @keyframes App-logo-spin {
   from {
