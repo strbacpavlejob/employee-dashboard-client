@@ -77,17 +77,21 @@ function EmployeeModal(props) {
   });
 
   useEffect(() => {
-    setEmployeeId(props.selectedEmployee.employeeId);
-    formik.setFieldValue("name", props.selectedEmployee.name);
-    formik.setFieldValue("emailAddress", props.selectedEmployee.emailAddress);
-    formik.setFieldValue("phoneNumber", props.selectedEmployee.phoneNumber);
-    formik.setFieldValue("homeAddress", props.selectedEmployee.homeAddress);
-    formik.setFieldValue(
-      "dateOfEmployment",
-      props.selectedEmployee.dateOfEmployment
-    );
-    formik.setFieldValue("dateOfBirth", props.selectedEmployee.dateOfBirth);
-  }, [props.selectedEmployee]);
+    if (props.editMode) {
+      setEmployeeId(props.selectedEmployee.employeeId);
+      const fields = [
+        "name",
+        "emailAddress",
+        "phoneNumber",
+        "homeAddress",
+        "dateOfEmployment",
+        "dateOfBirth",
+      ];
+      fields.forEach((field) =>
+        formik.setFieldValue(field, props.selectedEmployee[field], true)
+      );
+    }
+  }, [props.editMode]);
 
   const resetForm = () => {
     setEmployeeId("");
@@ -236,6 +240,7 @@ function EmployeeModal(props) {
           <Button
             onClick={() => {
               props.close();
+              resetForm();
             }}
           >
             Cancel
